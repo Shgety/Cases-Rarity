@@ -1,4 +1,6 @@
+from genericpath import isfile
 import requests
+import json
 from bs4 import BeautifulSoup as BS
 
 r = requests.get("https://www.csgodatabase.com/cases/")
@@ -31,4 +33,8 @@ d = {
     "rare_drops": rare_drops,
     "discontinued_drops": discountinued_drops
 }
-print(d)
+with open('actual.json', 'w') as file:
+    json.dump(d, file, indent=1)
+if not isfile('memorized.json'):
+    with open('memorized.json', 'w') as file:
+        json.dump(d, file, indent=1)

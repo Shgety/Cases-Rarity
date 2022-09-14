@@ -3,9 +3,11 @@ import requests
 import json
 from bs4 import BeautifulSoup as BS
 
+#https запрос
 r = requests.get("https://www.csgodatabase.com/cases/")
 html = BS(r.content, 'html.parser')
 
+#Парсинг страницы
 el = html.find("h3", text="Prime Drops").find_next_sibling().find_next_sibling(
 ).find_next_sibling().find_next_sibling().find_next_sibling()
 for item in el:
@@ -28,6 +30,7 @@ discountinued_drops = []
 for each in item:
     discountinued_drops.append(each.text)
 
+#Запись в json файл
 d = {
     "prime_drops": prime_drops,
     "rare_drops": rare_drops,
